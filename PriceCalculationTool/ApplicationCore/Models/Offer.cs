@@ -1,4 +1,6 @@
-﻿namespace ApplicationCore.Models
+﻿using System.Linq;
+
+namespace ApplicationCore.Models
 {
     public class Offer
     {
@@ -15,9 +17,39 @@
             DiscountedProductName = discountedProduct;
         }
 
-        public void ApplyToBasket(Basket basket)
+        public int HowManyTimesApplicableTo(Basket basket)
         {
-            basket.ApplyDiscountFor(this);
+            if (IsApplicableTo(basket))
+            {
+                if (RequiredProductName == DiscountedProductName)
+                {
+                    var applicableForRequiredProducts = HowManyMatchesForRequiredProduct(basket) / RequiredNumber;
+                    var applicableForDiscountedProducts = HowManyMatchesForDiscountedProduct(basket) - applicableForRequiredProducts * RequiredNumber;
+                    return applicableForRequiredProducts <= applicableForDiscountedProducts ? applicableForRequiredProducts : applicableForDiscountedProducts;
+                }
+                else
+                {
+                    var applicableForRequiredProducts = HowManyMatchesForRequiredProduct(basket) / RequiredNumber;
+                    var applicableForDiscountedProducts = HowManyMatchesForDiscountedProduct(basket);
+                    return applicableForRequiredProducts <= applicableForDiscountedProducts ? applicableForRequiredProducts : applicableForDiscountedProducts;
+                }
+            }
+            return 0;
+        }
+
+        public bool IsApplicableTo(Basket basket)
+        {
+            return HowManyMatchesForRequiredProduct(basket) >= RequiredNumber && HowManyMatchesForDiscountedProduct(basket) >= 1;
+        }
+
+        private int HowManyMatchesForRequiredProduct(Basket basket)
+        {
+            return basket.Items.Count(i => i.Name == RequiredProductName);
+        }
+
+        private int HowManyMatchesForDiscountedProduct(Basket basket)
+        {
+            return basket.Items.Count(i => i.Name == DiscountedProductName);
         }
     }
 }

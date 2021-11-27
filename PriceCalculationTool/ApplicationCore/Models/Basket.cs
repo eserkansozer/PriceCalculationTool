@@ -33,53 +33,26 @@ namespace ApplicationCore.Models
         {
             return _items.Sum(i => i.Cost) - _totalDiscount;
         }
-                
-        public void ApplyDiscountFor(Offer offer)
+
+        public void ApplyOffers(List<Offer> offers)
         {
-            if (this.IsEligibleFor(offer))
+            foreach (var offer in offers)
             {
-                var applyTimes = HowManyTimesEligibleFor(offer);
-                for (int i = 0; i < applyTimes; i++)
+                if (offer.IsApplicableTo(this))
                 {
-                    var productToDiscount = Items.Find(it => it.Name == offer.DiscountedProductName);
-                    _totalDiscount += productToDiscount.Cost * (decimal)offer.DiscountRate;
+                    ApplyOfferDiscount(offer);
                 }
             }
         }
 
-        private int HowManyTimesEligibleFor(Offer offer)
+        private void ApplyOfferDiscount(Offer offer)
         {
-            if (IsEligibleFor(offer))
+            var applyTimes = offer.HowManyTimesApplicableTo(this);
+            for (int i = 0; i < applyTimes; i++)
             {
-                if (offer.RequiredProductName == offer.DiscountedProductName)
-                {
-                    var applicableForRequiredProducts = HowManyMatchesForRequiredProduct(offer) / offer.RequiredNumber;
-                    var applicableForDiscountedProducts = HowManyMatchesForDiscountedProduct(offer) - applicableForRequiredProducts * offer.RequiredNumber;
-                    return applicableForRequiredProducts <= applicableForDiscountedProducts ? applicableForRequiredProducts : applicableForDiscountedProducts;
-                }
-                else
-                {
-                    var applicableForRequiredProducts = HowManyMatchesForRequiredProduct(offer) / offer.RequiredNumber;
-                    var applicableForDiscountedProducts = HowManyMatchesForDiscountedProduct(offer);
-                    return applicableForRequiredProducts <= applicableForDiscountedProducts ? applicableForRequiredProducts : applicableForDiscountedProducts;
-                }
+                var productToDiscount = Items.Find(it => it.Name == offer.DiscountedProductName);
+                _totalDiscount += productToDiscount.Cost * (decimal)offer.DiscountRate;
             }
-            return 0;
-        }
-
-        private bool IsEligibleFor(Offer offer)
-        {
-            return HowManyMatchesForRequiredProduct(offer) >= offer.RequiredNumber && HowManyMatchesForDiscountedProduct(offer) >= 1;
-        }
-
-        private int HowManyMatchesForRequiredProduct(Offer offer)
-        {
-            return _items.Count(i => i.Name == offer.RequiredProductName);
-        }
-
-        private int HowManyMatchesForDiscountedProduct(Offer offer)
-        {
-            return _items.Count(i => i.Name == offer.DiscountedProductName);
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using NUnit.Framework;
 using ApplicationCore.Models;
-using ApplicationCore;
-using System.Collections.Generic;
 
 namespace Tests
 {
@@ -39,10 +37,7 @@ namespace Tests
             basket.AddItem(_availableProducts.Find("Bread"));
             basket.AddItem(_availableProducts.Find("Bread"));
 
-            foreach (var offer in _activeOffers.Offers)
-            {
-                offer.ApplyToBasket(basket);
-            }
+            basket.ApplyOffers(_activeOffers.Offers);
 
             var sum = basket.Sum();
 
@@ -60,10 +55,7 @@ namespace Tests
             basket.AddItem(_availableProducts.Find("Bread"));
             basket.AddItem(_availableProducts.Find("Bread"));
 
-            foreach (var offer in _activeOffers.Offers)
-            {
-                offer.ApplyToBasket(basket);
-            }
+            basket.ApplyOffers(_activeOffers.Offers);
 
             var sum = basket.Sum();
 
@@ -80,10 +72,7 @@ namespace Tests
             basket.AddItem(_availableProducts.Find("Butter"));
             basket.AddItem(_availableProducts.Find("Bread"));
 
-            foreach (var offer in _activeOffers.Offers)
-            {
-                offer.ApplyToBasket(basket);
-            }
+            basket.ApplyOffers(_activeOffers.Offers);
 
             var sum = basket.Sum();
 
@@ -99,10 +88,7 @@ namespace Tests
             basket.AddItem(_availableProducts.Find("Milk"));
             basket.AddItem(_availableProducts.Find("Milk"));
 
-            foreach (var offer in _activeOffers.Offers)
-            {
-                offer.ApplyToBasket(basket);
-            }
+            basket.ApplyOffers(_activeOffers.Offers);
 
             var sum = basket.Sum();
 
@@ -125,10 +111,7 @@ namespace Tests
             basket.AddItem(_availableProducts.Find("Milk"));
             basket.AddItem(_availableProducts.Find("Milk"));
 
-            foreach (var offer in _activeOffers.Offers)
-            {
-                offer.ApplyToBasket(basket);
-            }
+            basket.ApplyOffers(_activeOffers.Offers);
 
             var sum = basket.Sum();
 
@@ -143,10 +126,7 @@ namespace Tests
             basket.AddItem(_availableProducts.Find("Milk"));
             basket.AddItem(_availableProducts.Find("Milk"));
 
-            foreach (var offer in _activeOffers.Offers)
-            {
-                offer.ApplyToBasket(basket);
-            }
+            basket.ApplyOffers(_activeOffers.Offers);
 
             var sum = basket.Sum();
 

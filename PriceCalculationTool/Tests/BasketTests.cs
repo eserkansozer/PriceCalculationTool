@@ -31,7 +31,7 @@ namespace Tests
         }
 
         [Test]
-        public void BasketShouldCalculateSumWithAnOfferApplied()
+        public void BasketShouldCalculateSumWithButterOfferApplied()
         {
             var basket = new Basket();
             basket.AddItem(_availableProducts.Find("Butter"));
@@ -47,6 +47,25 @@ namespace Tests
             var sum = basket.Sum();
 
             Assert.AreEqual(3.10m, sum);
+        }
+
+        [Test]
+        public void BasketShouldCalculateSumWithMilkOfferApplied()
+        {
+            var basket = new Basket();
+            basket.AddItem(_availableProducts.Find("Milk"));
+            basket.AddItem(_availableProducts.Find("Milk"));
+            basket.AddItem(_availableProducts.Find("Milk"));
+            basket.AddItem(_availableProducts.Find("Milk"));
+
+            foreach (var offer in _activeOffers.Offers)
+            {
+                offer.ApplyToBasket(basket);
+            }
+
+            var sum = basket.Sum();
+
+            Assert.AreEqual(3.45m, sum);
         }
 
     }

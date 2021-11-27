@@ -1,0 +1,6 @@
+C:\Projects\MS\PriceCalculationTool\Tests\bin\Debug\Tests.dll
+C:\Projects\MS\PriceCalculationTool\Tests\bin\Debug\Tests.pdb
+C:\Projects\MS\PriceCalculationTool\Tests\obj\Debug\Tests.csproj.AssemblyReference.cache
+C:\Projects\MS\PriceCalculationTool\Tests\obj\Debug\Tests.csproj.CoreCompileInputs.cache
+C:\Projects\MS\PriceCalculationTool\Tests\obj\Debug\Tests.dll
+C:\Projects\MS\PriceCalculationTool\Tests\obj\Debug\Tests.pdb

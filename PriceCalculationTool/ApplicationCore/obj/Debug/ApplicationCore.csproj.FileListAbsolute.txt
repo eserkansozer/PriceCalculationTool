@@ -1,0 +1,6 @@
+C:\Projects\MS\PriceCalculationTool\ApplicationCore\bin\Debug\ApplicationCore.dll
+C:\Projects\MS\PriceCalculationTool\ApplicationCore\bin\Debug\ApplicationCore.pdb
+C:\Projects\MS\PriceCalculationTool\ApplicationCore\obj\Debug\ApplicationCore.csproj.AssemblyReference.cache
+C:\Projects\MS\PriceCalculationTool\ApplicationCore\obj\Debug\ApplicationCore.csproj.CoreCompileInputs.cache
+C:\Projects\MS\PriceCalculationTool\ApplicationCore\obj\Debug\ApplicationCore.dll
+C:\Projects\MS\PriceCalculationTool\ApplicationCore\obj\Debug\ApplicationCore.pdb

@@ -36,7 +36,7 @@ namespace ApplicationCore.Models
                 
         public void ApplyDiscountFor(Offer offer)
         {
-            if (this.EligibleFor(offer))
+            if (this.IsEligibleFor(offer))
             {
                 var applyTimes = HowManyTimesEligibleFor(offer);
                 for (int i = 0; i < applyTimes; i++)
@@ -47,18 +47,27 @@ namespace ApplicationCore.Models
             }
         }
 
-        public int HowManyTimesEligibleFor(Offer offer)
+        private int HowManyTimesEligibleFor(Offer offer)
         {
-            if (EligibleFor(offer))
+            if (IsEligibleFor(offer))
             {
-                var eligibleForRequiredProducts = HowManyMatchesForRequiredProduct(offer) / offer.RequiredNumber;
-                var eligibleForDiscountedProducts = HowManyMatchesForDiscountedProduct(offer);
-                return eligibleForRequiredProducts <= eligibleForDiscountedProducts ? eligibleForRequiredProducts : eligibleForDiscountedProducts;
+                if (offer.RequiredProductName == offer.DiscountedProductName)
+                {
+                    var applicableForRequiredProducts = HowManyMatchesForRequiredProduct(offer) / offer.RequiredNumber;
+                    var applicableForDiscountedProducts = HowManyMatchesForDiscountedProduct(offer) - applicableForRequiredProducts * offer.RequiredNumber;
+                    return applicableForRequiredProducts <= applicableForDiscountedProducts ? applicableForRequiredProducts : applicableForDiscountedProducts;
+                }
+                else
+                {
+                    var applicableForRequiredProducts = HowManyMatchesForRequiredProduct(offer) / offer.RequiredNumber;
+                    var applicableForDiscountedProducts = HowManyMatchesForDiscountedProduct(offer);
+                    return applicableForRequiredProducts <= applicableForDiscountedProducts ? applicableForRequiredProducts : applicableForDiscountedProducts;
+                }
             }
             return 0;
         }
 
-        private bool EligibleFor(Offer offer)
+        private bool IsEligibleFor(Offer offer)
         {
             return HowManyMatchesForRequiredProduct(offer) >= offer.RequiredNumber && HowManyMatchesForDiscountedProduct(offer) >= 1;
         }

@@ -33,16 +33,19 @@ namespace ApplicationCore.Models
         {
             return _items.Sum(i => i.Cost) - _totalDiscount;
         }
-
-        public bool EligibleFor(Offer offer)
-        {
-            return _items.Where(i => i.Name == offer.RequiredProductName).Count() >= offer.RequiredNumber && _items.Any(i => i.Name == offer.DiscountedProductName);
-        }
-
+                
         public void ApplyDiscountFor(Offer offer)
         {
-            var productToDiscount = Items.Find(i => i.Name == offer.DiscountedProductName);
-            _totalDiscount += productToDiscount.Cost * (decimal)offer.DiscountRate;
+            if (this.EligibleFor(offer))
+            {
+                var productToDiscount = Items.Find(i => i.Name == offer.DiscountedProductName);
+                _totalDiscount += productToDiscount.Cost * (decimal)offer.DiscountRate;
+            }
+        }
+
+        private bool EligibleFor(Offer offer)
+        {
+            return _items.Where(i => i.Name == offer.RequiredProductName).Count() >= offer.RequiredNumber && _items.Any(i => i.Name == offer.DiscountedProductName);
         }
     }
 }

@@ -17,10 +17,7 @@
 
         public void ApplyToBasket(Basket basket)
         {
-            if (basket.EligibleFor(this))
-            {
-                basket.ApplyDiscountFor(this);
-            }
+            basket.ApplyDiscountFor(this);
         }
     }
 }

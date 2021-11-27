@@ -109,5 +109,33 @@ namespace Tests
             Assert.AreEqual(3.45m, sum);
         }
 
+        [Test]
+        public void BasketShouldCalculateSumWithButterAndMilkOffersApplied()
+        {
+            var basket = new Basket();
+            basket.AddItem(_availableProducts.Find("Butter"));
+            basket.AddItem(_availableProducts.Find("Butter"));
+            basket.AddItem(_availableProducts.Find("Bread"));
+            basket.AddItem(_availableProducts.Find("Milk"));
+            basket.AddItem(_availableProducts.Find("Milk"));
+            basket.AddItem(_availableProducts.Find("Milk"));
+            basket.AddItem(_availableProducts.Find("Milk"));
+            basket.AddItem(_availableProducts.Find("Milk"));
+            basket.AddItem(_availableProducts.Find("Milk"));
+            basket.AddItem(_availableProducts.Find("Milk"));
+            basket.AddItem(_availableProducts.Find("Milk"));
+
+            foreach (var offer in _activeOffers.Offers)
+            {
+                offer.ApplyToBasket(basket);
+            }
+
+            var sum = basket.Sum();
+
+            Assert.AreEqual(9.00m, sum);
+        }
+
+
+
     }
 }

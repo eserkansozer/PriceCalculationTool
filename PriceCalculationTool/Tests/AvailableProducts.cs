@@ -1,7 +1,8 @@
 ﻿using ApplicationCore.Models;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace ApplicationCore
+namespace Tests
 {
     public class AvailableProducts
     {
@@ -15,6 +16,11 @@ namespace ApplicationCore
                 new Product("Milk", 1.15M),
                 new Product("Bread", 1.00M)
             };
+        }
+
+        public Product Find(string name)
+        {
+            return Products.Where(p => p.Name == name).FirstOrDefault();
         }
     }
 }

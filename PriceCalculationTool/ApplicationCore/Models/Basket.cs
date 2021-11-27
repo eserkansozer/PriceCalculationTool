@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ApplicationCore.Models
 {
@@ -16,5 +18,14 @@ namespace ApplicationCore.Models
             get { return _items; }
         }
 
+        public void AddItem(Product item)
+        {
+            _items.Add(item);
+        }
+
+        public decimal Sum()
+        {
+            return _items.Sum(i => i.Cost);
+        }
     }
 }

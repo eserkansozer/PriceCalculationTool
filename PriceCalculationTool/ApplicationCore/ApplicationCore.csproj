@@ -41,8 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ActiveOffers.cs" />
-    <Compile Include="AvailableProducts.cs" />
     <Compile Include="Models\Basket.cs" />
     <Compile Include="Models\Offer.cs" />
     <Compile Include="Models\Product.cs" />

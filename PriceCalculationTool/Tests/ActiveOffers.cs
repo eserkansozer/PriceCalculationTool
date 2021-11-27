@@ -1,7 +1,7 @@
 ﻿using ApplicationCore.Models;
 using System.Collections.Generic;
 
-namespace ApplicationCore
+namespace Tests
 {
     public class ActiveOffers
     {

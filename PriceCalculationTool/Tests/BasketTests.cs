@@ -50,6 +50,47 @@ namespace Tests
         }
 
         [Test]
+        public void BasketShouldCalculateSumWithButterOfferAppliedTwice()
+        {
+            var basket = new Basket();
+            basket.AddItem(_availableProducts.Find("Butter"));
+            basket.AddItem(_availableProducts.Find("Butter"));            
+            basket.AddItem(_availableProducts.Find("Butter"));
+            basket.AddItem(_availableProducts.Find("Butter"));
+            basket.AddItem(_availableProducts.Find("Bread"));
+            basket.AddItem(_availableProducts.Find("Bread"));
+
+            foreach (var offer in _activeOffers.Offers)
+            {
+                offer.ApplyToBasket(basket);
+            }
+
+            var sum = basket.Sum();
+
+            Assert.AreEqual(4.20m, sum);
+        }
+
+        [Test]
+        public void BasketShouldCalculateSumWithButterOfferAppliedOnceOnlyBecauseOfDiscountedProduct()
+        {
+            var basket = new Basket();
+            basket.AddItem(_availableProducts.Find("Butter"));
+            basket.AddItem(_availableProducts.Find("Butter"));
+            basket.AddItem(_availableProducts.Find("Butter"));
+            basket.AddItem(_availableProducts.Find("Butter"));
+            basket.AddItem(_availableProducts.Find("Bread"));
+
+            foreach (var offer in _activeOffers.Offers)
+            {
+                offer.ApplyToBasket(basket);
+            }
+
+            var sum = basket.Sum();
+
+            Assert.AreEqual(3.70m, sum);
+        }
+
+        [Test]
         public void BasketShouldCalculateSumWithMilkOfferApplied()
         {
             var basket = new Basket();

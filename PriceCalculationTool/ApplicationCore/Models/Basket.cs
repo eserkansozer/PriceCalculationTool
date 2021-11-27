@@ -7,6 +7,12 @@ namespace ApplicationCore.Models
     public class Basket
     {
         private List<Product> _items;
+        private decimal _totalDiscount;
+
+        public decimal TotalDiscount
+        {
+            get { return _totalDiscount; }
+        }
 
         public Basket()
         {
@@ -25,7 +31,18 @@ namespace ApplicationCore.Models
 
         public decimal Sum()
         {
-            return _items.Sum(i => i.Cost);
+            return _items.Sum(i => i.Cost) - _totalDiscount;
+        }
+
+        public bool EligibleFor(Offer offer)
+        {
+            return _items.Where(i => i.Name == offer.RequiredProductName).Count() >= offer.RequiredNumber && _items.Any(i => i.Name == offer.DiscountedProductName);
+        }
+
+        public void ApplyDiscountFor(Offer offer)
+        {
+            var productToDiscount = Items.Find(i => i.Name == offer.DiscountedProductName);
+            _totalDiscount += productToDiscount.Cost * (decimal)offer.DiscountRate;
         }
     }
 }

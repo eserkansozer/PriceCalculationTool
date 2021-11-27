@@ -2,10 +2,10 @@
 {
     public class Offer
     {
-        private int RequiredNumber { get; }
-        private string RequiredProductName { get; }
-        private float DiscountRate { get; }
-        private string DiscountedProductName { get; }
+        internal int RequiredNumber { get; }
+        internal string RequiredProductName { get; }
+        internal float DiscountRate { get; }
+        internal string DiscountedProductName { get; }
 
         public Offer(int requiredNumber, string requiredProduct, float discountRate, string discountedProduct)
         {
@@ -13,6 +13,14 @@
             RequiredProductName = requiredProduct;
             DiscountRate = discountRate;
             DiscountedProductName = discountedProduct;
+        }
+
+        public void ApplyToBasket(Basket basket)
+        {
+            if (basket.EligibleFor(this))
+            {
+                basket.ApplyDiscountFor(this);
+            }
         }
     }
 }
